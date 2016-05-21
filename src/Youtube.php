@@ -11,7 +11,7 @@ class Youtube extends AbstractInfo implements VideoContract
     protected static $endpoint = 'https://www.googleapis.com/youtube/v3/videos';
     protected static $imageBaseUrl = 'https://i.ytimg.com/vi';
     protected static $apiKey;
-    protected $attributes = [];
+    protected $attributes;
     
     public function __construct($id)
     {
