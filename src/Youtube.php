@@ -15,7 +15,6 @@ class Youtube implements VideoContract
     
     public function __construct($id)
     {
-        static::setApi($apiKey);
         $client = new Client();
         $query = [
             'part' => 'contentDetails',
@@ -36,6 +35,11 @@ class Youtube implements VideoContract
         }
     }
     
+    public static function setApi($apiKey)
+    {
+        static::$apiKey = $apiKey;
+    }
+    
     public function getDuration()
     {
         $duration = new DateInterval($this->attributes->duration);
@@ -46,5 +50,17 @@ class Youtube implements VideoContract
     public function getThumbnail($type = 'default')
     {
         return static::$imageBaseUrl. '/'. $this->attributes->id . '/' .strtolower($type). '.jpg'; 
+    }
+    
+    public function __get($property)
+    {
+        if (isset($this->attributes->$property)) {
+            if (method_exists($this, $func = 'get'.ucfirst($property))) {
+                return $this->$func();
+            }
+            return $this->attributes->property;
+        }
+        
+        return null;
     }
 }
