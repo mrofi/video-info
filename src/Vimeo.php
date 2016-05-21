@@ -8,9 +8,8 @@ use Mrofi\VideoInfo\VideoInfoInterface as VideoContract;
 class Vimeo extends AbstractInfo implements VideoContract
 {
     protected static $endpoint = 'http://vimeo.com/api/oembed.json';
-    protected static $imageBaseUrl = 'https://i.ytimg.com/vi';
-    protected static $apiKey;
-    protected $attributes = [];
+
+    protected $attributes;
     
     public function __construct($id)
     {
