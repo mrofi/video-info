@@ -1,0 +1,22 @@
+{
+    "name": "mrofi/videoinfo",
+    "description": "Get Info  from Video (Youtube / Vimeo) from it's URL",
+    "homepage": "https://github.com/mrofi/video-info",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mokhamad Rofiudin",
+            "email": "mokh.rofiudin@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.3",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mrofi\\VideoInfo\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
