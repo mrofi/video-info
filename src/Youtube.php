@@ -22,7 +22,7 @@ class Youtube extends AbstractInfo implements VideoContract
             'id' => $id,
         ];
         try {
-            $response = $client->re quest('GET', static::$endpoint, compact('query'));
+            $response = $client->request('GET', static::$endpoint, compact('query'));
             if ($response->getStatusCode() == '200') {
                 $body = $response->getBody();
                 $content = $body->getContents();
