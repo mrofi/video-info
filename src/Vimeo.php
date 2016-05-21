@@ -1,9 +1,9 @@
 <?php
-namespace Mrofi/VideoInfo;
+namespace Mrofi\VideoInfo;
 
 use DateInterval;
-use GuzzleHttp/Client;
-use Mrofi/VideoInfo/VideoInfoInterface as VideoContract;
+use GuzzleHttp\Client;
+use Mrofi\VideoInfo\VideoInfoInterface as VideoContract;
 
 class Vimeo extends AbstractInfo implements VideoContract
 {
