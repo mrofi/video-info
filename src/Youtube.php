@@ -4,6 +4,7 @@ namespace Mrofi\VideoInfo;
 
 use DateInterval;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\TransferException;
 use Mrofi\VideoInfo\VideoInfoInterface as VideoContract;
 
 class Youtube extends AbstractInfo implements VideoContract
@@ -30,7 +31,7 @@ class Youtube extends AbstractInfo implements VideoContract
                 $this->attributes = $obj->items[0]->contentDetails;
                 $this->attributes->id = $id;
             }
-        } catch (GuzzleHttp\Exception\TransferException $e) {
+        } catch (TransferException $e) {
           //
         }
     }
