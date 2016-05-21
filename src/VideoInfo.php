@@ -1,6 +1,6 @@
 <?php
 
-namescape Mrofi/VideoInfo;
+namescape Mrofi\VideoInfo;
 
 class VideoInfo
 {
