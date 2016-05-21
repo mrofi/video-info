@@ -8,7 +8,8 @@ abstract class AbstractInfo
     
     public function __get($property)
     {
-        if (!isset($this->attributes->$property) && !method_exists($this, $func = 'get'.ucfirst($property))) {
+        $func = 'get'.ucfirst($property);
+        if (!isset($this->attributes->$property) && !method_exists($this, $func)) {
             return null;
         }
             

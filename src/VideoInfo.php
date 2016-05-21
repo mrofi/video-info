@@ -12,10 +12,13 @@ class VideoInfo
     
     public function __contruct($url, $type = null)
     {
+        Youtube::setApi(env('YOUTUBE_API'));
+
         if ($type === null) {
-            $all = [static::YOUTUBE, static::VIMEO];
+            $all = [static::YOUTUBE, static::VIMEO, static::DAILYMOTION];
             foreach ($all as $info) {
-                if ($info::getId($url)) {
+                $fun = 'get'.$info.'Id';
+                if ($info::$func($url)) {
                     $type = $info;
                     break;
                 }
@@ -43,24 +46,4 @@ class VideoInfo
     {
         return $this->obj ? $this->obj->$property : null;
     }
-
-    
-    /**
-    * Extracts the daily motion id from a daily motion url.
-    * Returns false if the url is not recognized as a daily motion url.
-    */
-    public function getDailyMotionId($url)
-    {
-        if (preg_match('!^.+dailymotion\.com/(video|hub)/([^_]+)[^#]*(#video=([^_&]+))?|(dai\.ly/([^_]+))!', $url, $m)) {
-            if (isset($m[6])) {
-                return $m[6];
-            }
-            if (isset($m[4])) {
-                return $m[4];
-            }
-            return $m[2];
-        }
-        return false;
-    }
 }
-
