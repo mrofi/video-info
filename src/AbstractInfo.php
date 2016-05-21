@@ -1,6 +1,6 @@
 <?php
 
-namespace Mrofi/VideoInfo;
+namespace Mrofi\VideoInfo;
 
 abstract class AbstractInfo
 {
