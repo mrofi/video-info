@@ -1,12 +1,12 @@
 <?php
 
-namespace Mrofi/VideoInfo;
+namespace Mrofi\VideoInfo;
 
 use DateInterval;
-use GuzzleHttp/Client;
-use Mrofi/VideoInfo/VideoInfoInterface as VideoContract;
+use GuzzleHttp\Client;
+use Mrofi\VideoInfo\VideoInfoInterface as VideoContract;
 
-class Youtube implements VideoContract
+class Youtube extends AbstractInfo implements VideoContract
 {
     protected static $endpoint = 'https://www.googleapis.com/youtube/v3/videos';
     protected static $imageBaseUrl = 'https://i.ytimg.com/vi';
@@ -42,25 +42,13 @@ class Youtube implements VideoContract
     
     public function getDuration()
     {
-        $duration = new DateInterval($this->attributes->duration);
-        $only = ['d','h','i','s'];
-        return array_intersect_key((array) $duration, array_flip($only))
+        $interval = new DateInterval($this->attributes->duration);
+        return $interval->h * 3600 + $interval->i * 60 + $interval->s;
     }
     
     public function getThumbnail($type = 'default')
     {
         return static::$imageBaseUrl. '/'. $this->attributes->id . '/' .strtolower($type). '.jpg'; 
     }
-    
-    public function __get($property)
-    {
-        if (isset($this->attributes->$property)) {
-            if (method_exists($this, $func = 'get'.ucfirst($property))) {
-                return $this->$func();
-            }
-            return $this->attributes->property;
-        }
-        
-        return null;
-    }
 }
+
