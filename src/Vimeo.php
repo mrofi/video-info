@@ -3,6 +3,7 @@ namespace Mrofi\VideoInfo;
 
 use DateInterval;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\TransferException;
 use Mrofi\VideoInfo\VideoInfoInterface as VideoContract;
 
 class Vimeo extends AbstractInfo implements VideoContract
@@ -20,7 +21,7 @@ class Vimeo extends AbstractInfo implements VideoContract
             'width' => '640',
         ];
         try {
-            $response = $client->re quest('GET', static::$endpoint, compact('query'));
+            $response = $client->request('GET', static::$endpoint, compact('query'));
             if ($response->getStatusCode() == '200') {
                 $body = $response->getBody();
                 $content = $body->getContents();
@@ -28,7 +29,7 @@ class Vimeo extends AbstractInfo implements VideoContract
                 $this->attributes = $obj;
                 $this->attributes->id = $id;
             }
-        } catch (GuzzleHttp\Exception\TransferException $e) {
+        } catch (TransferException $e) {
           //
         }
     }
