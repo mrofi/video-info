@@ -1,6 +1,6 @@
 <?php
 
-namespace Mrofi/VideoInfo;
+namespace Mrofi\VideoInfo;
 
 interface VideoInfoInterface
 {
