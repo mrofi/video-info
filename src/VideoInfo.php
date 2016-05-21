@@ -10,15 +10,15 @@ class VideoInfo
 
     protected $obj;
     
-    public function __contruct($url, $type = null)
+    public function __construct($url, $type = null)
     {
-        Youtube::setApi(env('YOUTUBE_API'));
-
+        $namespace = '\\Mrofi\\VideoInfo\\';
         if ($type === null) {
             $all = [static::YOUTUBE, static::VIMEO, static::DAILYMOTION];
             foreach ($all as $info) {
-                $fun = 'get'.$info.'Id';
-                if ($info::$func($url)) {
+                $func = 'get'.$info.'Id';
+                $class = $namespace.$info;
+                if ($class::$func($url)) {
                     $type = $info;
                     break;
                 }
@@ -29,7 +29,9 @@ class VideoInfo
             return;
         }
 
-        $this->obj = new $type($url);
+        $class = $namespace.$type;
+        $id = $class::$func($url);
+        $this->obj = new $class($id);
     }
 
     public function getVideo()

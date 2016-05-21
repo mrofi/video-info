@@ -32,7 +32,7 @@ class Youtube extends AbstractInfo implements VideoContract
                 $this->attributes->id = $id;
             }
         } catch (TransferException $e) {
-          //
+            //
         }
     }
     
