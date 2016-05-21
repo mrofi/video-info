@@ -41,6 +41,21 @@ class Youtube extends AbstractInfo implements VideoContract
         static::$apiKey = $apiKey;
     }
     
+    // Credit by https://github.com/lingtalfi/video-ids-and-thumbnails/blob/master/function.video.php
+    /**
+    * Extracts the vimeo id from a vimeo url.
+    * Returns false if the url is not recognized as a vimeo url.
+    */
+    public static function getId($url)
+    {
+        $videoId = false;
+        if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match)) {
+            $videoId = $match[1];
+        }
+
+        return $videoId;
+    }
+    
     public function getDuration()
     {
         $interval = new DateInterval($this->attributes->duration);
@@ -49,7 +64,6 @@ class Youtube extends AbstractInfo implements VideoContract
     
     public function getThumbnail($type = 'default')
     {
-        return static::$imageBaseUrl. '/'. $this->attributes->id . '/' .strtolower($type). '.jpg'; 
+        return static::$imageBaseUrl. '/'. $this->attributes->id . '/' .strtolower($type). '.jpg';
     }
 }
-

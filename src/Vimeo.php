@@ -1,4 +1,5 @@
 <?php
+
 namespace Mrofi\VideoInfo;
 
 use DateInterval;
@@ -9,7 +10,6 @@ use Mrofi\VideoInfo\VideoInfoInterface as VideoContract;
 class Vimeo extends AbstractInfo implements VideoContract
 {
     protected static $endpoint = 'http://vimeo.com/api/oembed.json';
-
     protected $attributes;
     
     public function __construct($id)
@@ -33,6 +33,20 @@ class Vimeo extends AbstractInfo implements VideoContract
           //
         }
     }
+
+    // Credit by https://github.com/lingtalfi/video-ids-and-thumbnails/blob/master/function.video.php
+    /**
+    * Extracts the vimeo id from a vimeo url.
+    * Returns false if the url is not recognized as a vimeo url.
+    */
+    public static function getId($url)
+    {
+        if (preg_match('#(?:https?://)?(?:www.)?(?:player.)?vimeo.com/(?:[a-z]*/)*([0-9]{6,11})[?]?.*#', $url, $m)) {
+            return $m[1];
+        }
+
+        return false;
+    }
     
     public function getDuration()
     {
@@ -43,5 +57,4 @@ class Vimeo extends AbstractInfo implements VideoContract
     {
         return isset($this->attributes->thumbnail_url) ? $this->attributes->thumbnail_url : null;
     }
-  }
-  
+}

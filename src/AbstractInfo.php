@@ -19,4 +19,3 @@ abstract class AbstractInfo
         return $this->attributes->property;
     }
 }
-
